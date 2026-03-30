@@ -4,21 +4,23 @@ Plataforma de e-commerce moderna y completa desarrollada con tecnologías de úl
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-ISC-green.svg)
+![Status](https://img.shields.io/badge/status-active-success.svg)
 
 ## 📋 Descripción
 
-Sleider Universe es una tienda online full-stack que ofrece una experiencia de compra excepcional. La aplicación incluye gestión de productos, categorías, carrito de compras, autenticación de usuarios y un panel de administración completo.
+**Sleider Universe** es una tienda online full-stack que ofrece una experiencia de compra excepcional. La aplicación incluye gestión de productos, categorías, carrito de compras, autenticación de usuarios, sistema de órdenes y pago simulado.
 
 ### ✨ Características Principales
 
 - 🛒 **Carrito de Compras**: Sistema completo de gestión de productos en carrito
+- 💳 **Pago Simulado**: Checkout funcional con validación de datos
+- 📦 **Sistema de Órdenes**: Crear, ver historial y gestionar órdenes
 - 🔐 **Autenticación JWT**: Sistema seguro de login y registro
 - 🎨 **Modo Oscuro/Claro**: Tema personalizable con transiciones suaves
 - 📱 **Diseño Responsivo**: Optimizado para todos los dispositivos
 - 🏷️ **Gestión de Categorías**: Organización intuitiva de productos
-- 👤 **Panel de Usuario**: Gestión de perfil y órdenes
+- 👤 **Panel de Usuario**: Gestión de perfil, carrito y órdenes
 - 🎯 **Productos Destacados**: Sección especial para promociones
-- 📊 **Dashboard Admin**: Panel de administración completo
 
 ## 🛠️ Tecnologías
 
@@ -286,19 +288,48 @@ ISC License - ver archivo LICENSE para más detalles
 - Fundador & CEO de Sleider Universe
 - Email: info@sleideruniverse.com
 
+## 🚀 Deployment
+
+### Opción 1: Vercel (Frontend) + Render (Backend)
+
+#### Frontend a Vercel
+1. Conecta tu repositorio a [Vercel](https://vercel.com)
+2. Selecciona `frontend` como root directory
+3. Configura la variable de entorno:
+   - `VITE_API_URL`: URL del backend (ej: `https://tu-api.onrender.com/api`)
+4. Deploy automático en cada push
+
+#### Backend a Render
+1. Conecta tu repositorio a [Render](https://render.com)
+2. Crea un servicio Web
+3. Selecciona `backend` como root directory
+4. Configura variables de entorno:
+   - `DATABASE_URL`: URL de PostgreSQL
+   - `JWT_SECRET`: Clave secreta
+   - `NODE_ENV`: production
+   - `FRONTEND_URL`: URL de Vercel
+5. Build Command: `npm install && npm run build && npx prisma migrate deploy`
+6. Start Command: `npm start`
+
+#### Base de Datos
+Usa [Neon](https://neon.tech) o [Supabase](https://supabase.com) para PostgreSQL en la nube
+
+### Opción 2: Railway/Fly.io
+Alternativas modernas para backend y frontend
+
 ## 🎯 Roadmap
 
-- [ ] Integración de pasarelas de pago
+- [ ] Integración de pasarelas de pago reales
 - [ ] Sistema de reseñas y calificaciones
 - [ ] Lista de deseos
 - [ ] Comparador de productos
 - [ ] Chat de soporte en vivo
 - [ ] Notificaciones push
 - [ ] App móvil nativa
+- [ ] Analytics y tracking
 
 ---
 
 ⭐ Si te gusta este proyecto, considera darle una estrella en GitHub!
 
 Hecho con ❤️ por Sleider García - 2025
-# sleideruniverse
