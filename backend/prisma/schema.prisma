@@ -1,0 +1,160 @@
+// ============================================
+// CONFIGURACIÓN DE PRISMA
+// ============================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// MODELO: CATEGORIA
+// ============================================
+
+model Categoria {
+  id                 Int       @id @default(autoincrement())
+  nombre             String    @db.VarChar(100)
+  descripcion        String    @db.Text
+  imagenUrl          String?   @map("imagen_url") @db.VarChar(500)
+  activo             Boolean   @default(true)
+  orden              Int       @default(0)
+  fechaCreacion      DateTime  @default(now()) @map("fecha_creacion")
+  fechaActualizacion DateTime  @updatedAt @map("fecha_actualizacion")
+  
+  // Relaciones
+  productos          Producto[]
+
+  @@map("categorias")
+}
+
+// ============================================
+// MODELO: PRODUCTO
+// ============================================
+
+model Producto {
+  id                 Int            @id @default(autoincrement())
+  nombre             String         @db.VarChar(200)
+  descripcion        String         @db.Text
+  precio             Decimal        @db.Decimal(10, 2)
+  stock              Int            @default(0)
+  categoriaId        Int            @map("categoria_id")
+  imagenUrl          String?        @map("imagen_url") @db.VarChar(500)
+  activo             Boolean        @default(true)
+  fechaCreacion      DateTime       @default(now()) @map("fecha_creacion")
+  fechaActualizacion DateTime       @updatedAt @map("fecha_actualizacion")
+  
+  // Relaciones
+  categoria          Categoria      @relation(fields: [categoriaId], references: [id])
+  carritoItems       CarritoItem[]
+  ordenItems         OrdenItem[]
+
+  @@map("productos")
+}
+
+// ============================================
+// MODELO: USUARIO
+// ============================================
+
+model Usuario {
+  id                 Int       @id @default(autoincrement())
+  nombre             String    @db.VarChar(100)
+  apellido           String    @db.VarChar(100)
+  email              String    @unique @db.VarChar(255)
+  password           String    @db.VarChar(255)
+  telefono           String?   @db.VarChar(20)
+  direccion          String?   @db.Text
+  rol                String    @default("cliente") @db.VarChar(20)
+  activo             Boolean   @default(true)
+  fechaCreacion      DateTime  @default(now()) @map("fecha_creacion")
+  fechaActualizacion DateTime  @updatedAt @map("fecha_actualizacion")
+  
+  // Relaciones
+  carrito            Carrito?
+  ordenes            Orden[]
+
+  @@map("usuarios")
+}
+
+// ============================================
+// MODELO: CARRITO
+// ============================================
+
+model Carrito {
+  id                 Int            @id @default(autoincrement())
+  usuarioId          Int            @unique @map("usuario_id")
+  fechaCreacion      DateTime       @default(now()) @map("fecha_creacion")
+  fechaActualizacion DateTime       @updatedAt @map("fecha_actualizacion")
+  
+  // Relaciones
+  usuario            Usuario        @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  items              CarritoItem[]
+
+  @@map("carritos")
+}
+
+// ============================================
+// MODELO: CARRITO ITEM
+// ============================================
+
+model CarritoItem {
+  id                 Int       @id @default(autoincrement())
+  carritoId          Int       @map("carrito_id")
+  productoId         Int       @map("producto_id")
+  cantidad           Int       @default(1)
+  precioUnitario     Decimal   @map("precio_unitario") @db.Decimal(10, 2)
+  fechaCreacion      DateTime  @default(now()) @map("fecha_creacion")
+  fechaActualizacion DateTime  @updatedAt @map("fecha_actualizacion")
+  
+  // Relaciones
+  carrito            Carrito   @relation(fields: [carritoId], references: [id], onDelete: Cascade)
+  producto           Producto  @relation(fields: [productoId], references: [id])
+
+  @@unique([carritoId, productoId])
+  @@map("carrito_items")
+}
+
+// ============================================
+// MODELO: ORDEN
+// ============================================
+
+model Orden {
+  id                 Int         @id @default(autoincrement())
+  usuarioId          Int         @map("usuario_id")
+  total              Decimal     @db.Decimal(10, 2)
+  estado             String      @default("pendiente") @db.VarChar(50)
+  direccionEnvio     String      @map("direccion_envio") @db.Text
+  metodoPago         String      @map("metodo_pago") @db.VarChar(50)
+  notas              String?     @db.Text
+  fechaCreacion      DateTime    @default(now()) @map("fecha_creacion")
+  fechaActualizacion DateTime    @updatedAt @map("fecha_actualizacion")
+  
+  // Relaciones
+  usuario            Usuario     @relation(fields: [usuarioId], references: [id])
+  items              OrdenItem[]
+
+  @@map("ordenes")
+}
+
+// ============================================
+// MODELO: ORDEN ITEM
+// ============================================
+
+model OrdenItem {
+  id                 Int       @id @default(autoincrement())
+  ordenId            Int       @map("orden_id")
+  productoId         Int       @map("producto_id")
+  cantidad           Int
+  precioUnitario     Decimal   @map("precio_unitario") @db.Decimal(10, 2)
+  subtotal           Decimal   @db.Decimal(10, 2)
+  fechaCreacion      DateTime  @default(now()) @map("fecha_creacion")
+  
+  // Relaciones
+  orden              Orden     @relation(fields: [ordenId], references: [id], onDelete: Cascade)
+  producto           Producto  @relation(fields: [productoId], references: [id])
+
+  @@map("orden_items")
+}

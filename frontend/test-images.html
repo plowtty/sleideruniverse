@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Imágenes</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        img { max-width: 300px; margin: 20px; border: 1px solid #ccc; }
+        .test { margin: 20px 0; padding: 10px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Test de Carga de Imágenes</h1>
+    
+    <div class="test">
+        <h2>iPhone 14 Pro (Local)</h2>
+        <img src="/images/articulos/iphone14pro.jpeg" alt="iPhone" onerror="this.style.border='3px solid red'; alert('Error cargando: ' + this.src);">
+        <p>Esperado: /images/articulos/iphone14pro.jpeg</p>
+    </div>
+    
+    <div class="test">
+        <h2>Balón Adidas (Local)</h2>
+        <img src="/images/articulos/balonadidas.jpeg" alt="Balón" onerror="this.style.border='3px solid red'; alert('Error cargando: ' + this.src);">
+        <p>Esperado: /images/articulos/balonadidas.jpeg</p>
+    </div>
+    
+    <div class="test">
+        <h2>Banner (Local)</h2>
+        <img src="/images/inicio/banner.jpeg" alt="Banner" onerror="this.style.border='3px solid red'; alert('Error cargando: ' + this.src);">
+        <p>Esperado: /images/inicio/banner.jpeg</p>
+    </div>
+
+    <script>
+        console.log('Test iniciado');
+        // Verificar que se cargan las imágenes
+        document.querySelectorAll('img').forEach(img => {
+            img.onload = () => console.log('✅ Cargada:', img.src);
+            img.onerror = () => console.error('❌ Error cargando:', img.src);
+        });
+    </script>
+</body>
+</html>
