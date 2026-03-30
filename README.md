@@ -301,3 +301,4 @@ ISC License - ver archivo LICENSE para más detalles
 ⭐ Si te gusta este proyecto, considera darle una estrella en GitHub!
 
 Hecho con ❤️ por Sleider García - 2025
+# sleideruniverse
