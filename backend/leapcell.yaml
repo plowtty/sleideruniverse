@@ -1,0 +1,6 @@
+type: service
+name: storeweb-backend
+runtime: nodejs
+buildCommand: npm install && npm run build
+startCommand: npm start
+port: 3000
