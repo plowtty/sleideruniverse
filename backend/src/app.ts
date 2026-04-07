@@ -70,6 +70,24 @@ app.get('/health', (req: Request, res: Response) => {
   });
 });
 
+app.get('/kaithhealthcheck', (req: Request, res: Response) => {
+  res.status(200).json({
+    success: true,
+    message: 'Healthcheck OK',
+    uptime: process.uptime(),
+    environment: env.NODE_ENV
+  });
+});
+
+app.get('/kaithheathcheck', (req: Request, res: Response) => {
+  res.status(200).json({
+    success: true,
+    message: 'Healthcheck OK',
+    uptime: process.uptime(),
+    environment: env.NODE_ENV
+  });
+});
+
 // ============================================
 // RUTAS DE LA API
 // ============================================
