@@ -24,13 +24,25 @@ import { requestLogger } from './middlewares/logger.middleware';
 
 const app: Application = express();
 
+const allowedOrigins = env.FRONTEND_URL
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 // ============================================
 // MIDDLEWARES GLOBALES
 // ============================================
 
 // CORS - Permitir peticiones desde el frontend
 app.use(cors({
-  origin: env.FRONTEND_URL,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+      return;
+    }
+
+    callback(new Error(`Origen no permitido por CORS: ${origin}`));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
