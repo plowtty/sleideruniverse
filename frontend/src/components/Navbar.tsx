@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ShoppingCart, User, LogOut, Menu, X, Moon, Sun, Sparkles, ChevronDown, ArrowRight } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { useCartStore } from '@/store/cartStore';
@@ -9,6 +9,7 @@ import { productService } from '@/services/product.service';
 import { Categoria, Producto } from '@/types';
 
 export const Navbar = () => {
+  const location = useLocation();
   const { usuario, isAuthenticated, logout } = useAuthStore();
   const itemCount = useCartStore((state) => state.getItemCount());
   const { theme, toggleTheme } = useTheme();
@@ -21,6 +22,12 @@ export const Navbar = () => {
   useEffect(() => {
     loadData();
   }, []);
+
+  useEffect(() => {
+    setShowBackdrop(false);
+    setActiveCategory(null);
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
   const loadData = async () => {
     try {
