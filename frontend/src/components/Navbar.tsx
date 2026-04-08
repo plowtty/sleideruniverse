@@ -10,6 +10,7 @@ import { Categoria, Producto } from '@/types';
 
 export const Navbar = () => {
   const location = useLocation();
+  const isAuthRoute = location.pathname === '/login' || location.pathname === '/register';
   const { usuario, isAuthenticated, logout } = useAuthStore();
   const itemCount = useCartStore((state) => state.getItemCount());
   const { theme, toggleTheme } = useTheme();
@@ -54,6 +55,7 @@ export const Navbar = () => {
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   const handleCategoryHover = (categoryId: number) => {
+    if (isAuthRoute) return;
     setActiveCategory(categoryId);
     setShowBackdrop(true);
   };
@@ -66,7 +68,7 @@ export const Navbar = () => {
   return (
     <div>
       {/* Global Backdrop */}
-      {showBackdrop && (
+      {!isAuthRoute && showBackdrop && (
         <div
           className="fixed inset-0 bg-black/20 backdrop-blur-md z-40 transition-opacity duration-300"
           onMouseLeave={handleMouseLeave}
