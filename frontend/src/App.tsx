@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
@@ -26,52 +26,62 @@ function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/productos" element={<ProductsPage />} />
-              <Route path="/productos/:id" element={<ProductoDetalle />} />
-              <Route path="/categorias" element={<CategoriasPage />} />
-              <Route path="/categorias/:categoriaId" element={<CategoryProductPage />} />
-              <Route path="/nosotros" element={<AboutPage />} />
-              <Route path="/login" element={<AuthPage />} />
-              <Route path="/register" element={<AuthPage />} />
-              <Route path="/carrito" element={<CartPage />} />
-              <Route path="/checkout" element={<CheckoutPage />} />
-              <Route path="/mis-pedidos" element={<MyOrdersPage />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </main>
-          <Footer />
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 3000,
-              style: {
-                background: '#363636',
-                color: '#fff',
-              },
-              success: {
-                duration: 3000,
-                iconTheme: {
-                  primary: '#10b981',
-                  secondary: '#fff',
-                },
-              },
-              error: {
-                duration: 4000,
-                iconTheme: {
-                  primary: '#ef4444',
-                  secondary: '#fff',
-                },
-              },
-            }}
-          />
-        </div>
+        <AppLayout />
       </BrowserRouter>
     </ThemeProvider>
+  );
+}
+
+function AppLayout() {
+  const location = useLocation();
+  const normalizedPath = location.pathname.replace(/\/+$/, '') || '/';
+  const isAuthRoute = normalizedPath === '/login' || normalizedPath === '/register';
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      {!isAuthRoute && <Navbar />}
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/productos" element={<ProductsPage />} />
+          <Route path="/productos/:id" element={<ProductoDetalle />} />
+          <Route path="/categorias" element={<CategoriasPage />} />
+          <Route path="/categorias/:categoriaId" element={<CategoryProductPage />} />
+          <Route path="/nosotros" element={<AboutPage />} />
+          <Route path="/login" element={<AuthPage />} />
+          <Route path="/register" element={<AuthPage />} />
+          <Route path="/carrito" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/mis-pedidos" element={<MyOrdersPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
+      {!isAuthRoute && <Footer />}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+          success: {
+            duration: 3000,
+            iconTheme: {
+              primary: '#10b981',
+              secondary: '#fff',
+            },
+          },
+          error: {
+            duration: 4000,
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#fff',
+            },
+          },
+        }}
+      />
+    </div>
   );
 }
 
