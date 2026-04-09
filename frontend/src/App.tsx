@@ -16,6 +16,11 @@ import { MyOrdersPage } from '@/pages/MyOrdersPage';
 import { useAuthStore } from '@/store/authStore';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 
+/**
+ * Componente raíz de la app frontend.
+ * - Inicializa el estado de autenticación desde localStorage al montar.
+ * - Envuelve toda la aplicación con el contexto de tema y el router.
+ */
 function App() {
   const initAuth = useAuthStore((state) => state.initAuth);
 
@@ -32,8 +37,14 @@ function App() {
   );
 }
 
+/**
+ * Layout global con reglas de navegación y rutas.
+ * Nota: en rutas de autenticación (`/login`, `/register`) se ocultan
+ * Navbar y Footer para evitar interferencias visuales/interactivas.
+ */
 function AppLayout() {
   const location = useLocation();
+  // Normaliza la URL para que '/login/' y '/login' se traten igual.
   const normalizedPath = location.pathname.replace(/\/+$/, '') || '/';
   const isAuthRoute = normalizedPath === '/login' || normalizedPath === '/register';
 
@@ -42,17 +53,24 @@ function AppLayout() {
       {!isAuthRoute && <Navbar />}
       <main className="flex-1">
         <Routes>
+          {/* Rutas públicas principales */}
           <Route path="/" element={<HomePage />} />
           <Route path="/productos" element={<ProductsPage />} />
           <Route path="/productos/:id" element={<ProductoDetalle />} />
           <Route path="/categorias" element={<CategoriasPage />} />
           <Route path="/categorias/:categoriaId" element={<CategoryProductPage />} />
           <Route path="/nosotros" element={<AboutPage />} />
+
+          {/* Autenticación en una sola pantalla animada con modo inicial */}
           <Route path="/login" element={<AuthPage initialMode="login" />} />
           <Route path="/register" element={<AuthPage initialMode="register" />} />
+
+          {/* Flujo de compra y cuenta */}
           <Route path="/carrito" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/mis-pedidos" element={<MyOrdersPage />} />
+
+          {/* Fallback para rutas inexistentes */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

@@ -1,8 +1,14 @@
 import axios from 'axios';
 
+// `VITE_API_URL` puede venir con o sin `/api`. Aquí se normaliza
+// para evitar errores de configuración entre local y producción.
 const rawApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 const API_URL = rawApiUrl.endsWith('/api') ? rawApiUrl : `${rawApiUrl.replace(/\/$/, '')}/api`;
 
+/**
+ * Cliente HTTP centralizado para toda la app.
+ * Cualquier servicio (`auth.service`, `product.service`, etc.) usa esta instancia.
+ */
 const apiClient = axios.create({
   baseURL: API_URL,
   headers: {
@@ -10,7 +16,8 @@ const apiClient = axios.create({
   },
 });
 
-// Interceptor para agregar token a las peticiones
+// Interceptor de request:
+// inyecta automáticamente el JWT si existe en localStorage.
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -24,7 +31,9 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Interceptor para manejar errores de autenticación
+// Interceptor de response:
+// si el backend responde 401, se limpia sesión local y se redirige a login.
+// Esto evita estados inconsistentes cuando el token expira o es inválido.
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
