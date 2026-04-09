@@ -105,17 +105,6 @@ export const LoginPage = () => {
             </button>
           </form>
 
-          {/* Demo Credentials */}
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <p className="text-sm font-medium text-blue-900 mb-2">Usuarios de prueba:</p>
-            <div className="text-xs text-blue-800 space-y-1">
-              <p><strong>Admin:</strong> admin@storeweb.com</p>
-              <p><strong>Cliente:</strong> juan@example.com</p>
-              <p className="mt-2 text-blue-600">
-                <em>Nota: Las contraseñas son de ejemplo. En producción deberían estar hasheadas.</em>
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -205,13 +205,6 @@ export const AuthPage = ({ initialMode = 'login' }: AuthPageProps) => {
                   </button>
                 </div>
 
-                <div className="mt-8 rounded-2xl border border-blue-100 bg-blue-50 p-4 dark:border-blue-900/60 dark:bg-blue-950/30">
-                  <p className="mb-2 text-sm font-medium text-blue-900 dark:text-blue-200">Usuarios de prueba:</p>
-                  <div className="space-y-1 text-xs text-blue-800 dark:text-blue-300">
-                    <p><strong>Admin:</strong> admin1@test.com | Contraseña: test1</p>
-                    <p><strong>Cliente:</strong> juan@example.com</p>
-                  </div>
-                </div>
               </div>
             </section>
 
