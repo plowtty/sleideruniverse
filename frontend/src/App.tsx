@@ -9,7 +9,8 @@ import { ProductoDetalle } from '@/pages/ProductoDetalle';
 import { CategoryProductPage } from '@/pages/CategoryProductPage';
 import { CategoriasPage } from '@/pages/CategoriasPage';
 import { AboutPage } from '@/pages/AboutPage';
-import { AuthPage } from '@/pages/AuthPage';
+import { LoginPage } from '@/pages/LoginPage';
+import { RegisterPage } from '@/pages/Register';
 import { CartPage } from '@/pages/CartPage';
 import { CheckoutPage } from '@/pages/CheckoutPage';
 import { MyOrdersPage } from '@/pages/MyOrdersPage';
@@ -48,8 +49,8 @@ function AppLayout() {
           <Route path="/categorias" element={<CategoriasPage />} />
           <Route path="/categorias/:categoriaId" element={<CategoryProductPage />} />
           <Route path="/nosotros" element={<AboutPage />} />
-          <Route path="/login" element={<AuthPage />} />
-          <Route path="/register" element={<AuthPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/carrito" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/mis-pedidos" element={<MyOrdersPage />} />
