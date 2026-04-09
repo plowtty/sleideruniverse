@@ -5,10 +5,14 @@ import { authService } from '@/services/auth.service';
 import { useAuthStore } from '@/store/authStore';
 import toast from 'react-hot-toast';
 
-export const AuthPage = () => {
+interface AuthPageProps {
+  initialMode?: 'login' | 'register';
+}
+
+export const AuthPage = ({ initialMode = 'login' }: AuthPageProps) => {
   const navigate = useNavigate();
   const setUsuario = useAuthStore((state) => state.setUsuario);
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(initialMode === 'login');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 

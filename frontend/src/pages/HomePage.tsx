@@ -16,7 +16,6 @@ import { ScrollReveal } from '@/components/ScrollReveal';
 import { productService } from '@/services/product.service';
 import { categoryService } from '@/services/category.service';
 import { Producto, Categoria } from '@/types';
-import toast from 'react-hot-toast';
 
 const beneficios = [
   {
@@ -40,20 +39,22 @@ export const HomePage = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true);
+        setError(false);
         const [productosData, categoriasData] = await Promise.all([
           productService.getAll(1, 8),
           categoryService.getAll(true),
         ]);
         setProductos(productosData.data);
         setCategorias(categoriasData.slice(0, 5));
-      } catch (error) {
-        console.error('Error al cargar datos:', error);
-        toast.error('Error al cargar los datos');
+      } catch (err) {
+        console.error('Error al cargar datos:', err);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -66,6 +67,26 @@ export const HomePage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6 px-4 text-center">
+        <div className="text-6xl">🔌</div>
+        <div>
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">No se pudo conectar al servidor</h2>
+          <p className="text-gray-500 dark:text-gray-400 max-w-md">
+            El servidor está tardando en responder. Por favor, inténtalo de nuevo en unos momentos.
+          </p>
+        </div>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-6 py-3 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition"
+        >
+          Reintentar
+        </button>
       </div>
     );
   }
