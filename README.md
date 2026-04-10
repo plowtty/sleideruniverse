@@ -99,7 +99,7 @@ cd backend
 npm install
 ```
 
-Crear archivo `.env`:
+Crear archivo `.env` con las variables necesarias:
 
 ```env
 # Puerto del servidor
@@ -108,12 +108,14 @@ PORT=3000
 # Base de datos
 DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/storeweb"
 
-# JWT Secret
-JWT_SECRET=tu_clave_secreta_aqui
+# JWT Secret (genera una clave aleatoria segura)
+JWT_SECRET=<generar-clave-aleatoria-segura>
 
 # Entorno
 NODE_ENV=development
 ```
+
+> ⚠️ **Importante**: `JWT_SECRET` es una variable sensible. Nunca la compartas públicamente. Para desarrollo local, puedes usar: `openssl rand -base64 32`
 
 Configurar la base de datos:
 
