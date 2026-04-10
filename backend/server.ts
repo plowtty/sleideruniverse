@@ -12,6 +12,11 @@ import { connectDatabase } from './src/config/prisma';
 
 /**
  * Función principal para iniciar el servidor
+ * Orden de arranque:
+ * 1) Validar/cargar entorno (se hace al importar `env`)
+ * 2) Conectar base de datos
+ * 3) Levantar servidor HTTP
+ * 4) Registrar señales para apagado controlado
  */
 async function startServer(): Promise<void> {
   try {
@@ -32,7 +37,8 @@ async function startServer(): Promise<void> {
       console.log('');
     });
 
-    // Manejo de cierre graceful
+    // Manejo de cierre graceful:
+    // permite terminar conexiones activas antes de salir del proceso.
     process.on('SIGTERM', () => {
       console.log('');
       console.log('⚠️  SIGTERM recibido: cerrando servidor...');
@@ -52,6 +58,8 @@ async function startServer(): Promise<void> {
     });
 
   } catch (error) {
+    // Si falla el arranque inicial (DB o servidor), se aborta el proceso
+    // para evitar dejar la app en estado inconsistente.
     console.error('');
     console.error('=================================================');
     console.error('❌ Error al iniciar el servidor');

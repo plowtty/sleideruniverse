@@ -9,6 +9,7 @@ dotenv.config();
 
 /**
  * Interfaz que define todas las variables de entorno necesarias
+ * Se tipa explícitamente para centralizar contratos de configuración.
  */
 interface EnvConfig {
   // Servidor
@@ -28,6 +29,7 @@ interface EnvConfig {
 
 /**
  * Valida que todas las variables de entorno requeridas estén definidas
+ * Solo valida claves críticas para poder iniciar API + autenticación.
  */
 function validateEnv(): void {
   const required = [
@@ -45,6 +47,7 @@ function validateEnv(): void {
 }
 
 // Validar variables de entorno al cargar el módulo
+// Esto hace fail-fast: el servidor no arranca con configuración incompleta.
 validateEnv();
 
 /**
@@ -62,12 +65,13 @@ export const env: EnvConfig = {
   JWT_SECRET: process.env.JWT_SECRET!,
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '7d',
   
-  // Configuración de CORS
+  // Configuración de CORS (admite uno o varios orígenes separados por coma)
   FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173'
 };
 
 /**
  * Verifica si el entorno es de producción
+ * Útil para activar/desactivar logs verbosos y respuestas sensibles.
  */
 export const isProduction = (): boolean => {
   return env.NODE_ENV === 'production';
@@ -75,6 +79,7 @@ export const isProduction = (): boolean => {
 
 /**
  * Verifica si el entorno es de desarrollo
+ * Se usa, por ejemplo, para exponer stack traces en errores.
  */
 export const isDevelopment = (): boolean => {
   return env.NODE_ENV === 'development';

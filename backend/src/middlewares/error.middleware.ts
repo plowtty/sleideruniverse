@@ -16,7 +16,10 @@ export interface AppError extends Error {
 
 /**
  * Middleware global para manejo de errores
- * Captura todos los errores de la aplicación y los formatea
+ * Captura todos los errores de la aplicación y los formatea.
+ * Estrategia:
+ * - Desarrollo: máxima visibilidad (stack + detalle)
+ * - Producción: mensajes seguros, sin filtrar internals
  */
 export function errorHandler(
   err: AppError,
@@ -41,7 +44,7 @@ export function errorHandler(
     console.error('');
   }
 
-  // Respuesta en desarrollo (incluye stack trace)
+  // Respuesta en desarrollo (incluye stack trace para depuración)
   if (isDevelopment()) {
     res.status(err.statusCode).json({
       success: false,
@@ -55,14 +58,16 @@ export function errorHandler(
 
   // Respuesta en producción (oculta detalles sensibles)
   if (err.isOperational) {
-    // Error operacional: se puede confiar en el mensaje
+    // Error operacional: viene de validaciones/reglas esperadas.
+    // Se puede devolver al cliente con su mensaje original.
     res.status(err.statusCode).json({
       success: false,
       status: err.status,
       message: err.message
     });
   } else {
-    // Error de programación: no revelar detalles
+    // Error de programación: bug inesperado.
+    // Se registra internamente y se responde mensaje genérico.
     console.error('ERROR DE PROGRAMACIÓN:', err);
     res.status(500).json({
       success: false,
@@ -74,6 +79,8 @@ export function errorHandler(
 
 /**
  * Crea un error operacional personalizado
+ * Útil para servicios/controladores cuando se quiere abortar flujo
+ * con código HTTP y mensaje controlado.
  */
 export function createError(message: string, statusCode: number = 500): AppError {
   const error: AppError = new Error(message);
@@ -85,7 +92,8 @@ export function createError(message: string, statusCode: number = 500): AppError
 
 /**
  * Manejo de errores asíncronos
- * Wrapper para evitar try-catch en cada controlador
+ * Wrapper para evitar try-catch repetitivo en cada controlador.
+ * Cualquier rechazo se reenvía al middleware global de errores.
  */
 export function asyncHandler(fn: Function) {
   return (req: Request, res: Response, next: NextFunction) => {

@@ -24,6 +24,8 @@ import { requestLogger } from './middlewares/logger.middleware';
 
 const app: Application = express();
 
+// FRONTEND_URL acepta múltiples orígenes separados por coma.
+// Esto permite incluir dominio principal y previews (por ejemplo, Vercel).
 const allowedOrigins = env.FRONTEND_URL
   .split(',')
   .map((origin) => origin.trim())
@@ -34,6 +36,8 @@ const allowedOrigins = env.FRONTEND_URL
 // ============================================
 
 // CORS - Permitir peticiones desde el frontend
+// Nota: si `origin` viene vacío (ej. curl/postman/server-to-server),
+// se permite para no bloquear comprobaciones técnicas.
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -82,6 +86,8 @@ app.get('/health', (req: Request, res: Response) => {
   });
 });
 
+// Endpoints alternos de healthcheck para compatibilidad con
+// validadores externos que esperan rutas con nombres específicos.
 app.get('/kaithhealthcheck', (req: Request, res: Response) => {
   res.status(200).json({
     success: true,
@@ -126,6 +132,7 @@ app.use('*', (req: Request, res: Response) => {
 // MIDDLEWARE DE MANEJO DE ERRORES
 // ============================================
 
+// Debe registrarse al final para capturar errores de rutas/middlewares previos.
 app.use(errorHandler);
 
 // ============================================
