@@ -163,21 +163,7 @@ La aplicación estará disponible en `http://localhost:5173`
 
 ## 👥 Usuarios de Prueba
 
-Después de ejecutar el seed, puedes usar estos usuarios:
-
-```
-Admin:
-  Email: admin1@test.com
-  Password: test1
-
-Cliente 1:
-  Email: juan@example.com
-  Password: test1
-
-Cliente 2:
-  Email: maria@example.com
-  Password: test1
-```
+Después de ejecutar el seed localmente, se crean usuarios de prueba automáticamente. Consulta el archivo `backend/prisma/seed.ts` para ver las credenciales.
 
 ## 📡 API Endpoints
 
@@ -285,37 +271,41 @@ ISC License - ver archivo LICENSE para más detalles
 ## 👨‍💻 Autor
 
 **Sleider García**
-- Fundador & CEO de Sleider Universe
-- Email: info@sleideruniverse.com
+- Desarrollador Full-Stack
+- GitHub: [@plowtty](https://github.com/plowtty)
 
 ## 🚀 Deployment
 
-### Opción 1: Vercel (Frontend) + Render (Backend)
+### Aplicación en Vivo
+
+**Frontend**: [sleideruniverse.vercel.app](https://sleideruniverse.vercel.app)
+- Alojado en Vercel
+- Deploy automático desde rama `main`
+
+**Backend**: [API Leapcell](https://sleideruniverse-plowtty1892-hujcpf4p.leapcell.dev/api)
+- Alojado en Leapcell
+- PostgreSQL en la nube
+
+### Configuración de Deployment
 
 #### Frontend a Vercel
 1. Conecta tu repositorio a [Vercel](https://vercel.com)
 2. Selecciona `frontend` como root directory
 3. Configura la variable de entorno:
-   - `VITE_API_URL`: URL del backend (ej: `https://tu-api.onrender.com/api`)
+   - `VITE_API_URL`: URL del backend
 4. Deploy automático en cada push
 
-#### Backend a Render
-1. Conecta tu repositorio a [Render](https://render.com)
-2. Crea un servicio Web
+#### Backend a Leapcell
+1. Crea una aplicación Node.js en [Leapcell](https://leapcell.io)
+2. Conecta tu repositorio
 3. Selecciona `backend` como root directory
 4. Configura variables de entorno:
-   - `DATABASE_URL`: URL de PostgreSQL
-   - `JWT_SECRET`: Clave secreta
+   - `DATABASE_URL`: URL de PostgreSQL (incluida)
+   - `JWT_SECRET`: Clave secreta única
    - `NODE_ENV`: production
    - `FRONTEND_URL`: URL de Vercel
 5. Build Command: `npm install && npm run build && npx prisma migrate deploy`
 6. Start Command: `npm start`
-
-#### Base de Datos
-Usa [Neon](https://neon.tech) o [Supabase](https://supabase.com) para PostgreSQL en la nube
-
-### Opción 2: Railway/Fly.io
-Alternativas modernas para backend y frontend
 
 ## 🎯 Roadmap
 
