@@ -256,6 +256,27 @@ npm run lint        # Ejecutar linter
 - **Orden**: Órdenes completadas
 - **OrdenItem**: Items de cada orden
 
+### Verificar Funcionalidad
+
+La base de datos está **activa y verificable** a través de estos endpoints:
+
+```bash
+# Verificar servidor
+curl https://sleideruniverse-plowtty1892-hujcpf4p.leapcell.dev/api/health
+
+# Listar productos (requiere conexión desde red abierta)
+curl https://sleideruniverse-plowtty1892-hujcpf4p.leapcell.dev/api/productos
+
+# Listar categorías
+curl https://sleideruniverse-plowtty1892-hujcpf4p.leapcell.dev/api/categorias
+```
+
+En la aplicación en vivo (https://sleideruniverse.vercel.app), al navegar:
+- La página de inicio carga productos y categorías desde la BD
+- El carrito persiste datos en tiempo real
+- Las órdenes se guardan correctamente tras checkout
+- La autenticación valida usuarios contra la BD
+
 ##  Contribuir
 
 Las contribuciones son bienvenidas. Por favor:
