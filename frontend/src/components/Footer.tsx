@@ -62,7 +62,7 @@ export const Footer = () => {
             <div className="mt-5 space-y-4 text-sm text-blue-100/75">
               <div className="flex items-start gap-3">
                 <Mail className="mt-0.5 h-4 w-4 text-blue-300" />
-                <span>sleidev@gmail.com</span>
+                <span>sleiderdev@gmail.com</span>
               </div>
               <div className="flex items-start gap-3">
                 <Phone className="mt-0.5 h-4 w-4 text-blue-300" />
