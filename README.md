@@ -1,4 +1,4 @@
-# 🌟 Sleider Universe
+#  Sleider Universe
 
 Plataforma de e-commerce moderna y completa desarrollada con tecnologías de última generación.
 
@@ -6,23 +6,23 @@ Plataforma de e-commerce moderna y completa desarrollada con tecnologías de úl
 ![License](https://img.shields.io/badge/license-ISC-green.svg)
 ![Status](https://img.shields.io/badge/status-active-success.svg)
 
-## 📋 Descripción
+##  Descripción
 
 **Sleider Universe** es una tienda online full-stack que ofrece una experiencia de compra excepcional. La aplicación incluye gestión de productos, categorías, carrito de compras, autenticación de usuarios, sistema de órdenes y pago simulado.
 
-### ✨ Características Principales
+###  Características Principales
 
-- 🛒 **Carrito de Compras**: Sistema completo de gestión de productos en carrito
-- 💳 **Pago Simulado**: Checkout funcional con validación de datos
-- 📦 **Sistema de Órdenes**: Crear, ver historial y gestionar órdenes
-- 🔐 **Autenticación JWT**: Sistema seguro de login y registro
-- 🎨 **Modo Oscuro/Claro**: Tema personalizable con transiciones suaves
-- 📱 **Diseño Responsivo**: Optimizado para todos los dispositivos
-- 🏷️ **Gestión de Categorías**: Organización intuitiva de productos
-- 👤 **Panel de Usuario**: Gestión de perfil, carrito y órdenes
-- 🎯 **Productos Destacados**: Sección especial para promociones
+-  **Carrito de Compras**: Sistema completo de gestión de productos en carrito
+-  **Pago Simulado**: Checkout funcional con validación de datos
+-  **Sistema de Órdenes**: Crear, ver historial y gestionar órdenes
+-  **Autenticación JWT**: Sistema seguro de login y registro
+-  **Modo Oscuro/Claro**: Tema personalizable con transiciones suaves
+-  **Diseño Responsivo**: Optimizado para todos los dispositivos
+- ️ **Gestión de Categorías**: Organización intuitiva de productos
+-  **Panel de Usuario**: Gestión de perfil, carrito y órdenes
+-  **Productos Destacados**: Sección especial para promociones
 
-## 🛠️ Tecnologías
+## ️ Tecnologías
 
 ### Backend
 - **Node.js** + **Express** - Framework del servidor
@@ -43,7 +43,7 @@ Plataforma de e-commerce moderna y completa desarrollada con tecnologías de úl
 - **Lucide React** - Iconos modernos
 - **React Hot Toast** - Notificaciones
 
-## 📦 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 storeweb/
@@ -77,7 +77,7 @@ storeweb/
 └── README.md
 ```
 
-## 🚀 Instalación
+##  Instalación
 
 ### Prerequisitos
 
@@ -115,7 +115,7 @@ JWT_SECRET=<generar-clave-aleatoria-segura>
 NODE_ENV=development
 ```
 
-> ⚠️ **Importante**: `JWT_SECRET` es una variable sensible. Nunca la compartas públicamente. Para desarrollo local, puedes usar: `openssl rand -base64 32`
+> ⚠ **Importante**: `JWT_SECRET` es una variable sensible. Nunca la compartas públicamente. Para desarrollo local, puedes usar: `openssl rand -base64 32`
 
 Configurar la base de datos:
 
@@ -143,7 +143,7 @@ Crear archivo `.env`:
 VITE_API_URL=http://localhost:3000/api
 ```
 
-## 🎮 Uso
+##  Uso
 
 ### Iniciar Backend
 
@@ -163,11 +163,11 @@ npm run dev
 
 La aplicación estará disponible en `http://localhost:5173`
 
-## 👥 Usuarios de Prueba
+##  Usuarios de Prueba
 
 Después de ejecutar el seed localmente, se crean usuarios de prueba automáticamente. Consulta el archivo `backend/prisma/seed.ts` para ver las credenciales.
 
-## 📡 API Endpoints
+##  API Endpoints
 
 ### Autenticación
 - `POST /api/auth/register` - Registrar usuario
@@ -200,7 +200,7 @@ Después de ejecutar el seed localmente, se crean usuarios de prueba automática
 - `PUT /api/usuarios/:id` - Actualizar usuario
 - `DELETE /api/usuarios/:id` - Eliminar usuario
 
-## 🎨 Características de UI
+##  Características de UI
 
 ### Tema Personalizable
 - Modo oscuro y claro
@@ -217,7 +217,7 @@ Después de ejecutar el seed localmente, se crean usuarios de prueba automática
 - Breakpoints optimizados
 - Menú hamburguesa en móvil
 
-## 🔒 Seguridad
+##  Seguridad
 
 - Contraseñas hasheadas con bcrypt
 - Tokens JWT para autenticación
@@ -225,7 +225,7 @@ Después de ejecutar el seed localmente, se crean usuarios de prueba automática
 - Validación de datos en backend
 - CORS configurado
 
-## 📝 Scripts Disponibles
+##  Scripts Disponibles
 
 ### Backend
 ```bash
@@ -244,7 +244,7 @@ npm run preview     # Preview de build de producción
 npm run lint        # Ejecutar linter
 ```
 
-## 🌐 Base de Datos
+##  Base de Datos
 
 ### Modelos Principales
 
@@ -256,7 +256,7 @@ npm run lint        # Ejecutar linter
 - **Orden**: Órdenes completadas
 - **OrdenItem**: Items de cada orden
 
-## 🤝 Contribuir
+##  Contribuir
 
 Las contribuciones son bienvenidas. Por favor:
 
@@ -266,17 +266,17 @@ Las contribuciones son bienvenidas. Por favor:
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
-## 📄 Licencia
+##  Licencia
 
 ISC License - ver archivo LICENSE para más detalles
 
-## 👨‍💻 Autor
+## ‍💻 Autor
 
 **Sleider García**
 - Desarrollador Full-Stack
 - GitHub: [@plowtty](https://github.com/plowtty)
 
-## 🚀 Deployment
+##  Deployment
 
 ### Aplicación en Vivo
 
@@ -309,7 +309,7 @@ ISC License - ver archivo LICENSE para más detalles
 5. Build Command: `npm install && npm run build && npx prisma migrate deploy`
 6. Start Command: `npm start`
 
-## 🎯 Roadmap
+##  Roadmap
 
 - [ ] Integración de pasarelas de pago reales
 - [ ] Sistema de reseñas y calificaciones
@@ -322,6 +322,6 @@ ISC License - ver archivo LICENSE para más detalles
 
 ---
 
-⭐ Si te gusta este proyecto, considera darle una estrella en GitHub!
+ Si te gusta este proyecto, considera darle una estrella en GitHub!
 
-Hecho con ❤️ por Sleider García - 2025
+Hecho con ❤ por Sleider García - 2025
